@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ac7de344f4d406e44896a27d8a826ddb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Shaders/Crystal Blue.mat
+  uploadId: 861256

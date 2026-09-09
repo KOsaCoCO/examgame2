@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3527628386499871889
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  version: 10
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Water
+  m_Shader: {fileID: -6465566751694194690, guid: f0517709c4939684888481b3255e6b26, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses:
+  - MOTIONVECTORS
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Foam_Amount: 5
+    - _Foam_Cuttoff: 4
+    - _Foam_Scale: 800
+    - _Foam_Speed: 1
+    - _Horizon_Distance: 12
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Ripple_Size: 200
+    - _Ripple_Size_two: 130
+    - _Ripple_Speed: 2
+    - _Ripple_Thickness: 2
+    - _Ripple_Thickness_two: 3
+    - _Spec_SPeed: 2
+    - _Spec_Size: 200
+    - _Spec_Size_two: 150
+    - _Spec_Thickness: 2.15
+    - _Spec_Thickness_two: 2
+    - _Water_Depth: 1.68
+    - _Wave_Amplitude: 0.5
+    - _Wave_Frequency: 12
+    - _Wave_Speed: 1
+    m_Colors:
+    - _Color_Deep: {r: 0.11854753, g: 0.35941058, b: 0.6792453, a: 1}
+    - _Color_Shallow: {r: 0.16789784, g: 0.6798719, b: 0.7264151, a: 1}
+    - _Foam_Colour: {r: 0.62038606, g: 1.4142135, b: 1.2157567, a: 1}
+    - _Horizon_Colour: {r: 0.20392156, g: 1, b: 0.797976, a: 1}
+    - _Ripple_Colour: {r: 0.11654919, g: 0.7625451, b: 0.9883373, a: 1}
+    - _Spec_Colour: {r: 0.3568441, g: 0.7580115, b: 0.9339623, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

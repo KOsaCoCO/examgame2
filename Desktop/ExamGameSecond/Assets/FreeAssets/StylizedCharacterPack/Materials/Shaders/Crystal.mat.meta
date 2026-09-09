@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 713134c28f9376c4687c7f7a98c83b46
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Shaders/Crystal.mat
+  uploadId: 861256

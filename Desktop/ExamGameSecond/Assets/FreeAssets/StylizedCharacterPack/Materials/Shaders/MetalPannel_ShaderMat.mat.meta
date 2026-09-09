@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 231d5fda8c1bc7b469540220d2003677
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Shaders/MetalPannel_ShaderMat.mat
+  uploadId: 861256
