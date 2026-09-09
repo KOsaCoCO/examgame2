@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6a94b35f7f0b34aac8cdead532c01502
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Demo/Prefabs/Controller/RabbitCharacter.prefab
+  uploadId: 861256
