@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3a59f287e56ba72469dfc27f2065b22f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181308
+  packageName: Simply Sky Gradient Shader
+  packageVersion: 1.03
+  assetPath: Assets/SkyShader/URP_ShaderAndMat/UPR_Mat_Basic.mat
+  uploadId: 533190
