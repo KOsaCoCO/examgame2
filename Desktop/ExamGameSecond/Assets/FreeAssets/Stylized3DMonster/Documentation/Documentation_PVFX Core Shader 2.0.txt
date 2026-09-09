@@ -1,0 +1,240 @@
+🧩 PVFX Core Shader 2.0 — Official Documentation
+Shader Name: PVFX/Unlit_PV_VFX_Core2.0
+Pipeline: Universal Render Pipeline (URP)
+Category: Stylized VFX / Unlit Shader
+Author: PixeliusVita
+Version: 2.0 (November 2025)
+________________________________________
+🌟 Overview
+PVFX Core Shader 2.0 is a highly-optimized, stylized Unlit URP shader for real-time visual effects.
+It expands upon version 1.0 with a new Motion Texture Layer, advanced UV distortion systems, and enhanced mobile-friendly GPU utilities.
+Designed specifically for impact VFX, slash effects, dissolve animations, aura pulses, magical FX, projectiles, and stylized mobile effects, PVFX Core 2.0 is lightweight, modular, and fully controllable via shader properties.
+This release includes:
+•	Unlit_PV_VFX_Core2.0.shader — upgraded VFX shader with Motion Texture System.
+•	PVFX_CustomTimeDriver.cs — per-instance timing driver (same pipeline as 1.0).
+________________________________________
+✨ What’s New in Version 2.0
+✔ Motion Texture Layer (independent system)
+•	Move from A→B
+•	Scale from pivot
+•	Rotate around pivot
+•	Looping (optional)
+•	Time-controlled (StartTime / Duration)
+•	Separate color + UV
+✔ Advanced GPU distortions
+•	Global distort
+•	Wave, RoundWave
+•	Shake jitter
+•	UV seed randomness
+•	More mobile-friendly math
+✔ Core System Upgrades
+•	Core color injection
+•	Smoother rim/bloom integration
+•	More stable dissolve animation timing
+•	Extra emission controls
+✔ Stronger Setup for Mobile Game VFX
+•	All animation is UV-driven
+•	Optional per-instance timer
+•	Low overdraw strategy
+•	All effects can be toggled individually
+________________________________________
+🎨 Base Surface Controls
+Property	Description
+_MainTex (RGBA)	Main texture for color and alpha.
+_Color	Global tint color.
+_MainTex_Scroll (XY)	UV scrolling (panning).
+_MainTex_Rot	Rotation speed (around UV center).
+_UseCoreColor	Enables core color injection.
+_CoreColor / _CoreIntensity	Adds energy glow inside main color.
+Great for: flowing fire, magic surfaces, aura, energy waves.
+________________________________________
+
+
+
+🔥 Dissolve System
+Property	Description
+_DissolveTex	Noise/gradient mask for dissolve.
+_DissolveScroll / _DissolveRot	Animate dissolve pattern.
+_UseDissolveTiming	Enables automatic dissolve timeline.
+_DissolveStart / Duration	Controls dissolve animation in seconds.
+_ReverseDissolve	Reverses dissolve direction.
+_DissolveAmount	Manual dissolve (0–1).
+_EdgeColor / _EdgeWidth	Controls glowing dissolve outline.
+⚠️ Important
+To ensure clean reset of dissolve when objects respawn, attach:
+PVFX_CustomTimeDriver.cs
+(drives per-instance _CustomTime)
+________________________________________
+💫 Rim Lighting
+Property	Description
+_UseRim	Enables rim light.
+_RimColor	Color of rim glow.
+_RimPower	Sharpness of rim falloff.
+_RimIntensity	Brightness multiplier.
+_RimMap	Optional rim mask.
+Useful for: magical outlines, glowing edges, stylized highlights.
+________________________________________
+
+
+
+🌟 Bloom System
+Property	Description
+_BloomMap	Mask for bloom.
+_BloomColor	Bloom color.
+_BloomIntensity	Bloom power.
+_BloomAffectRimOnly	Bloom applies only on rim if enabled.
+Works well with Post-Processing "Bloom".
+________________________________________
+🌊 UV Warp Distortion
+Property	Description
+_UVWarpAmount	Distortion amplitude.
+_UVWarpSpeed	Wave movement speed.
+_UVWarpFrequency	Frequency of wave.
+_UVWarpMode	0 = Sine mode, 1 = Zigzag mode.
+Used for: heat distortion, fluid motion, magic ripple.
+________________________________________
+⚡ Global Distortion System
+Property	Description
+_UseGlobalDistort	Enables global distortion.
+_DistortTex	Noise texture driving distortion.
+_DistortAmount	Distortion strength.
+_DistortTexXSpeed / YSpeed	Scrolling direction of noise.
+_UseUvZAsSeed	Uses UV.z as seed value (per-vertex random).
+_DistortSeed	Additional custom seed.
+Great for chaotic energy, unstable magic, void FX, electricity.
+________________________________________
+🌐 Wave / Shake FX
+✔ Shake (jitter)
+•	_ShakeUvSpeed
+•	_ShakeUvX, _ShakeUvY
+Simulates micro vibration, trembling or “energy crack”.
+✔ Radial Waves
+•	_RoundWaveStrength
+•	_RoundWaveSpeed
+Creates circular pulses (perfect for impact ripples).
+✔ Directional Wave
+•	_WaveAmount
+•	_WaveSpeed
+•	_WaveStrength
+•	_WaveX, _WaveY
+Ideal for slashes, impacts, and magic surges.
+________________________________________
+🎥 Motion Texture Layer (Independent FX Layer)
+✨ NEW in 2.0
+The Motion Texture Layer is a second texture system that animates independently from the main UV.
+Useful for: hit-flashes, sparks, moving lights, secondary masks, slash trails, projectile tip, etc.
+🔹 Enable Motion Layer
+Property	Description
+_UseMotionTex	Enables the system.
+_MotionTex	Texture used for motion layer.
+_MotionColor	Tint + blending factor.
+________________________________________
+🏃 Motion: MOVE (A → B)
+Property	Description
+_MoveFrom	Starting offset (UV).
+_MoveTo	Ending offset (UV).
+_MoveStartTime	Delay before moving.
+_MoveDuration	Time from A → B.
+_Loop	Loop movement.
+________________________________________
+🔍 Motion: SCALE (from pivot)
+Property	Description
+_ScalePivot	Pivot of scaling (0–1 range).
+_ScaleAmount	Final scaling amount.
+_ScaleStartTime	Scale animation delay.
+_ScaleDuration	Total scale time.
+________________________________________
+🔄 Motion: ROTATION (around pivot)
+Property	Description
+_RotationPivot	UV pivot for rotation.
+_RotationAngle	Final angle in degrees.
+_RotationStartTime	Delay before rotation.
+_RotationDuration	Animation duration.
+________________________________________
+✔ Looping
+All animation modes support looping if _Loop = 1.
+________________________________________
+✨ Emission & Misc
+Property	Description
+_EmissionMultiplier	Multiply glow and bloom output.
+_UseAlphaClip	Enable alpha testing.
+_Cutoff	Alpha threshold.
+_CustomTime	Optional per-instance timer override.
+________________________________________
+🧠 How to Use
+Step 1 — Create Material
+Choose shader:
+PVFX/Unlit_PV_VFX_Core2.0
+Assign _MainTex and optional _MotionTex.
+Tweak dissolve, UV warp, rim, bloom, and motion settings.
+________________________________________
+Step 2 — Add Custom Time Driver
+For dissolve timing or any _CustomTime behavior, attach:
+PVFX_CustomTimeDriver.cs
+This ensures:
+•	per-instance timing
+•	dissolve resets correctly
+•	clean animation when FX respawn
+________________________________________
+
+
+
+
+📜 PVFX_CustomTimeDriver.cs (same as v1.0)
+Works with:
+•	MeshRenderer
+•	SkinnedMeshRenderer
+•	ParticleRenderer
+Uses MaterialPropertyBlock → safe for batching.
+________________________________________
+💡 Tips & Optimization
+✔ For mobile:
+•	Disable unused features (rim, bloom, warp, distort).
+•	Keep Motion Texture small (256–512px).
+•	Avoid using all distortions at once.
+•	Prefer grayscale noise for dissolve and distort.
+✔ For slashes/projectiles:
+•	Set Move A→B
+•	Add slight rotation with pivot
+•	Add RoundWave pulse
+•	Final bloom gives readability
+✔ For impact FX:
+•	Use MotionTex as white burst
+•	Add strong CoreColor
+•	Use RoundWaveStrength for shockwave
+________________________________________
+🔧 Compatibility
+Feature	Support
+URP	✔ URP 10+
+HDRP	✖ Not supported
+Built-in	✖ Not supported
+Mobile	✔ Fully supported
+Console/PC	✔ Optimized
+Renderer Types	MeshRenderer, SkinnedMeshRenderer, ParticleRenderer
+Requires Shader Model 3.0+
+________________________________________
+⚖️ License & Terms of Use
+© PixeliusVita. All rights reserved.
+Allowed:
+•	Use in any commercial/personal game.
+•	Modify or extend for personal use.
+•	Include inside game builds.
+Not allowed:
+•	Redistribute shader or modifications as standalone assets.
+•	Repackage into other asset packs.
+•	Claim authorship.
+•	Train AI models with included textures/shaders.
+________________________________________
+📦 Package Contents
+File	Description
+Unlit_PV_VFX_Core2.0.shader	Full VFX shader with Motion Layer & Distortion Systems.
+PVFX_CustomTimeDriver.cs	Per-instance dissolve & timing controller.
+________________________________________
+
+🧱 Version Info
+Field	Info
+Version	2.0
+Pipeline	URP
+Author	PixeliusVita
+Last Updated	November 2025
+

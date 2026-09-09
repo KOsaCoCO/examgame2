@@ -1,0 +1,198 @@
+🧩 PVFX Core Shader 1.0 — Official Documentation
+Shader Name: PVFX/Unlit_PV_VFX_Core2.0
+Pipeline: Universal Render Pipeline (URP)
+Category: Stylized VFX / Unlit Shader
+Author: PixeliusVita
+Version: 1.0 (October 2025)
+________________________________________
+🌟 Overview
+PVFX Core Shader 1.0 is a lightweight stylized Unlit URP shader built for real-time visual effects such as dissolve, aura, flame, or energy-based visuals.
+It is designed for clarity, modular control, and performance, running smoothly on both mobile and desktop platforms.
+This release includes:
+•	Unlit_PV_VFX_Core1.0.shader — The core stylized visual effects shader.
+•	PVFX_CustomTimeDriver.cs — Companion script for synchronized dissolve timing reset and per-instance animation control.
+________________________________________
+⚙️ Shader Features
+🎨 Base Surface & Texture Control
+Property	Description
+_MainTex (RGBA)	Main texture controlling the surface color.
+_Color	Global tint color applied to the entire effect.
+_MainTex_Scroll (XY)	UV scrolling speed for animated textures.
+_MainTex_Rot	Rotation speed of the main texture around UV center.
+Use these controls to create flowing, rotating, or pulsating energy surfaces.
+________________________________________
+
+
+
+🔥 Dissolve Effect
+Property	Description
+_DissolveTex	Noise texture controlling dissolve mask.
+_DissolveScroll (XY)	UV scroll speed of dissolve pattern.
+_DissolveRot	Rotation speed for dissolve UV.
+_UseDissolveTiming	Enables automatic dissolve animation over time.
+_DissolveStart	Delay before dissolve starts (seconds).
+_DissolveDuration	Duration of the dissolve animation (seconds).
+_ReverseDissolve	Reverses dissolve direction.
+_DissolveAmount	Manual dissolve value (0–1).
+_EdgeColor	Edge glow color for dissolve border.
+_EdgeWidth	Width of the edge line around dissolve area.
+⚠️ Important:
+To ensure the dissolve animation resets correctly when a prefab reactivates,
+attach the included PVFX_CustomTimeDriver.cs script to any GameObject using this shader.
+The script updates a local _CustomTime property so each instance animates independently.
+________________________________________
+💫 Rim Lighting
+Property	Description
+_UseRim	Enables rim lighting effect.
+_RimColor	Color of rim glow.
+_RimPower	Sharpness (falloff) of rim.
+_RimIntensity	Intensity multiplier.
+_RimMap	Optional rim mask texture.
+Adds stylized glowing edges — great for energy outlines or highlight effects.
+________________________________________
+🌟 Bloom Mask
+Property	Description
+_BloomMap	Defines bloom contribution per pixel.
+_BloomColor	Bloom color output.
+_BloomIntensity	Overall bloom strength.
+_BloomAffectRimOnly	Restricts bloom to rim areas only.
+Use this with Unity’s Bloom post-processing for an enhanced glow.
+________________________________________
+🌊 UV Warp Distortion
+Property	Description
+_UVWarpAmount	Distortion strength.
+_UVWarpFrequency	Frequency of wave motion.
+_UVWarpSpeed	Speed of wave movement.
+_UVWarpMode	0 = Sine, 1 = Zigzag distortion.
+Simulates fluid motion, heat haze, or magical energy distortion.
+________________________________________
+⚡ Extra Controls
+Property	Description
+_EmissionMultiplier	Global emission intensity multiplier.
+_UseAlphaClip	Enables alpha cutoff for transparency control.
+_Cutoff	Transparency threshold (0–1).
+_CustomTime	Optional external timer (automatically controlled by script).
+________________________________________
+
+
+🧠 How to Use
+Step 1 — Create the Material
+1.	Create a new material.
+2.	In Shader dropdown, choose:
+Custom → Unlit_PV_VFX_Core1.0
+3.	Assign _MainTex (color) and _DissolveTex (noise).
+4.	Adjust dissolve, rim, and warp settings to your desired visual style.
+________________________________________
+Step 2 — Add the Custom Time Driver Script
+Attach the PVFX_CustomTimeDriver component to any object using this shader.
+It automatically updates the _CustomTime property to control per-instance dissolve timing and ensures proper reset when the object respawns or re-enables.
+Example Script:
+using UnityEngine;
+
+/// <summary>
+/// Drives a shader "_CustomTime" property for local VFX timing.
+/// Uses MaterialPropertyBlock to avoid material instancing and keep GPU batching.
+/// Auto-resets when prefab is (re)enabled.
+/// Works in both Editor and Play mode.
+/// </summary>
+[ExecuteAlways]
+[DisallowMultipleComponent]
+[AddComponentMenu("PVFX/Custom Time Driver")]
+public class PVFX_CustomTimeDriver : MonoBehaviour
+{
+    [Tooltip("Shader property name to update (default: _CustomTime).")]
+    public string customTimeProperty = "_CustomTime";
+
+    [Tooltip("Update rate (seconds). Use 0 for every frame update.")]
+    [Min(0f)] public float updateInterval = 0f;
+
+    private static int propID;
+    private Renderer rend;
+    private MaterialPropertyBlock mpb;
+    private float localTime;
+    private float timeSinceUpdate;
+
+    void Awake()
+    {
+        if (string.IsNullOrEmpty(customTimeProperty))
+            customTimeProperty = "_CustomTime";
+
+        propID = Shader.PropertyToID(customTimeProperty);
+        rend = GetComponent<Renderer>();
+
+        if (rend == null)
+        {
+            Debug.LogWarning($"{nameof(PVFX_CustomTimeDriver)} requires a Renderer on '{gameObject.name}'. Disabling.");
+            enabled = false;
+            return;
+        }
+
+        mpb = new MaterialPropertyBlock();
+    }
+
+    void OnEnable()
+    {
+        localTime = 0f;
+        timeSinceUpdate = 0f;
+    }
+
+    void Update()
+    {
+        if (!rend) return;
+
+        localTime += Application.isPlaying ? Time.deltaTime : Time.unscaledDeltaTime;
+        timeSinceUpdate += Time.deltaTime;
+
+        if (updateInterval > 0f && timeSinceUpdate < updateInterval)
+            return;
+
+        rend.GetPropertyBlock(mpb);
+        mpb.SetFloat(propID, localTime);
+        rend.SetPropertyBlock(mpb);
+
+        timeSinceUpdate = 0f;
+    }
+}
+✅ Works with MeshRenderer, SkinnedMeshRenderer, or ParticleRenderer
+✅ Resets dissolve timing on respawn
+✅ Efficient — uses MaterialPropertyBlock for performance and batching safety
+________________________________________
+💡 Tips
+•	The shader is Unlit, meaning it ignores scene lighting.
+•	Enable _UseDissolveTiming = 1 for auto dissolve.
+•	Use _DissolveAmount for manual control via animation curves.
+•	For stylized results, combine rim, bloom, and UV warp together.
+•	Works best with noise textures that have high contrast edges.
+________________________________________
+🔧 Compatibility
+✅ Universal Render Pipeline (URP 10+)
+✅ Mobile, PC, and Console
+✅ Supports MeshRenderer, SkinnedMeshRenderer, ParticleRenderer
+❌ Not compatible with HDRP or Built-in Pipeline
+________________________________________
+⚖️ License & Terms of Use
+Copyright © PixeliusVita. All rights reserved.
+You are allowed to:
+•	✅ Use this shader and script in commercial or personal projects.
+•	✅ Modify, extend, or rename as needed.
+•	✅ Include within your own game builds or creative works.
+You are not allowed to:
+•	❌ Resell, share, or redistribute this shader (or derivatives) as a standalone asset.
+•	❌ Include it in other asset packs, whether paid or free.
+•	❌ Claim authorship or upload to marketplaces without permission.
+•	❌ Use in AI model training datasets.
+By using this package, you agree to these terms.
+________________________________________
+
+📦 Package Contents
+File	Description
+Unlit_PV_VFX_Core1.0.shader	Core stylized URP dissolve shader with rim, bloom, and UV warp features.
+PVFX_CustomTimeDriver.cs	Local time controller script for independent dissolve animation per object.
+________________________________________
+🧱 Version Info
+Field	Info
+Version	1.0
+Pipeline	Universal Render Pipeline (URP)
+Author	PixeliusVita
+Last Updated	October 2025
+
