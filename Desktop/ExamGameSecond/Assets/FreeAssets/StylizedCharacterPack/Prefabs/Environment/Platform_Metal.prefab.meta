@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6ec21a8c4a837d94bbfe11d6d7b6870d
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Prefabs/Environment/Platform_Metal.prefab
+  uploadId: 861256
