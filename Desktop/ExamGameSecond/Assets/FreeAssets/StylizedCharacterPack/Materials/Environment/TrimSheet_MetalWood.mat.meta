@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a7a48e019e5306a44bd4174af6d2aa5b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/TrimSheet_MetalWood.mat
+  uploadId: 861256

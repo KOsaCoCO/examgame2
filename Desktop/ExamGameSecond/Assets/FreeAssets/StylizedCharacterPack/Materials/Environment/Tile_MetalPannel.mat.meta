@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0a1b606813c880b4ead739a9a9eff113
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/Tile_MetalPannel.mat
+  uploadId: 861256

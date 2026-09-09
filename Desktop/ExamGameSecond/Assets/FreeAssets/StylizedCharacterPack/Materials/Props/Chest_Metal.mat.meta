@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: abe4538c1c9a2f54d8f02ad69c33165f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Props/Chest_Metal.mat
+  uploadId: 861256

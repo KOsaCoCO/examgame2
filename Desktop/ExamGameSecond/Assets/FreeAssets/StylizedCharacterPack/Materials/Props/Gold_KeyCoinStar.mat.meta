@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a9fc7dfee06e48f49b4663bb4cc754c8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Props/Gold_KeyCoinStar.mat
+  uploadId: 861256

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 88ec25c20326187468fa6a0ded5dc683
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/Tile_Stone.mat
+  uploadId: 861256

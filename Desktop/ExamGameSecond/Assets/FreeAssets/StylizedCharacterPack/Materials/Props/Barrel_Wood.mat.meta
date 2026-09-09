@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1698b3c497a395b43ae546971aa1d5fc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Props/Barrel_Wood.mat
+  uploadId: 861256

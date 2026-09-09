@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9aa503fa0f899a742ae3843e33665d8e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/Tile_WoodPlanks.mat
+  uploadId: 861256
