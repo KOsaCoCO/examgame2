@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 88e7e060d03d3bb46afd8d7612f0ad3b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/Tile_Concrete.mat
+  uploadId: 861256

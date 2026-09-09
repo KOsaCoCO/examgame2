@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e550df687ac68f944a92c396a4e02e77
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/Sky_Blue.mat
+  uploadId: 861256

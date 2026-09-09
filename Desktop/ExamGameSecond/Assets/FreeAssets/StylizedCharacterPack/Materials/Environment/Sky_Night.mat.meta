@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 859f65e4b0b41a248a2b9187a99f168f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/Sky_Night.mat
+  uploadId: 861256

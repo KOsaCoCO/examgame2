@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fc1930c575bcaf146bdf810147549e9f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/Sky_Red.mat
+  uploadId: 861256

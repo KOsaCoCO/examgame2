@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ff05a3c5169249e4f945a2ada046d934
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Characters/Rabbit_Material.mat
+  uploadId: 861256

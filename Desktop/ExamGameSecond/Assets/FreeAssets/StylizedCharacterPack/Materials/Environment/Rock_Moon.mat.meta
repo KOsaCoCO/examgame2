@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 38f14bfc596d9794390e6f1447b78659
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/Environment/Rock_Moon.mat
+  uploadId: 861256
