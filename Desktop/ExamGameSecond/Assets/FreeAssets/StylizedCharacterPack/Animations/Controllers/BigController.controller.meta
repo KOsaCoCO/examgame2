@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 43745d8cef2eb504c8223b13e359dc2e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Animations/Controllers/BigController.controller
+  uploadId: 861256
