@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 10cc0ca530beb0f4583b38e78c42f6f7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Prefabs/Props/Coin.prefab
+  uploadId: 861256
