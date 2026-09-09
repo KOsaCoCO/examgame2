@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a2749ebed87d69d4fa2edabea92dfb56
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Textures/Environment/Tiles/Floor_WoodPlanks_AO.mat
+  uploadId: 861256
