@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 5dea342b473a64913a1926d5acf1530e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 12388, guid: 0000000000000000e000000000000000, type: 0}
+  disableValidation: 0
+  unsupportedSelectorAction: 0
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Demo/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss
+  uploadId: 861256

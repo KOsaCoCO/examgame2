@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 995396895d57d48dfb3419a3011075b6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Demo/UI Toolkit/PanelSettings.asset
+  uploadId: 861256

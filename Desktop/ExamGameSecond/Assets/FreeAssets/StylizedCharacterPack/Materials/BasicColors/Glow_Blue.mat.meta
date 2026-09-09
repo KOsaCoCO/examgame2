@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: dab3bb16feb7f9245adc0183df51fef1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 360808
+  packageName: Stylized Character Pack
+  packageVersion: 1.0
+  assetPath: Assets/StylizedCharacterPack/Materials/BasicColors/Glow_Blue.mat
+  uploadId: 861256

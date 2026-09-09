@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="TypeSelection" style="flex-grow: 1; left: 0; top: 0; bottom: 0; width: 500px; justify-content: space-evenly; padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;">
+        <ui:Button text="Bat" name="Bat" style="height: 100px; font-size: 72px;"/>
+        <ui:Button text="Rabbit" name="Rabbit" style="height: 100px; font-size: 72px;"/>
+        <ui:Button text="Leopard" name="Leopard" style="height: 100px; font-size: 72px;"/>
+        <ui:Button text="Sloth" name="Sloth" style="height: 100px; font-size: 72px;"/>
+        <ui:Button text="Seagull" name="Seagull" style="height: 100px; font-size: 72px;"/>
+    </ui:VisualElement>
+</ui:UXML>
