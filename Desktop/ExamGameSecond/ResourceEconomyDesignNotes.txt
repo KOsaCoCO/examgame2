@@ -1,0 +1,277 @@
+RESOURCE ECONOMY - DESIGN NOTES
+================================
+Reference doc for the Configure/Upgrade and Trade pathways, written while
+building the Drain (Buy Land) path so the thinking isn't lost. Nothing in
+here is built yet except what's explicitly marked BUILT.
+
+THE SHAPE OF THE SYSTEM
+------------------------
+    Source (chop a tree with an Axe -> Wood)                        [BUILT]
+       -> Inventory (storage/management)
+            -> Configure/Upgrade   (craft: e.g. Wood+Rock -> Tool)
+            -> Drain                (consume, e.g. Buy Land)         [BUILT]
+            <-> Trade               (bidirectional with NPCs)
+
+Debug: Add Test Items now only grants starting tools (Axe, Pickaxe) - it no
+longer grants raw resources or armor. Wood has to be gathered in-world now;
+Rock still needs a source (a rock/mining node) before Buy Land's Rock half is
+testable standalone again - Pickaxe is already in inventory ready for whenever
+that node exists.
+
+Inventory is the hub everything else hangs off. Configure and Drain both
+pull FROM inventory only (one-directional sinks). Trade is the only
+bidirectional path - give an item, get an item back from the NPC - which
+the session's request called "a little bit of drain in the trade since you
+give an item and it disappears and you get an item from the character".
+
+WHAT'S BUILT NOW (Source: chopping)
+--------------------------------------
+- InteractableHotspot gained a second event, OnSecondaryInteract (right-click,
+  same in-range-only gating as OnInteract/E) - PlayerController now reads both
+  E and right-click and fires separate events (onInteract / onSecondaryInteract)
+  for anything to subscribe to. A hotspot can use either or both; ButtonHUB
+  still only wires OnInteract, trees only wire OnSecondaryInteract.
+- HarvestableResource (Assets/MyScripts/HarvestableResource.cs): generic
+  "hit N times with the right tool -> get a resource -> disappear" component.
+  Checks the ARMED hand slot specifically (PlayerHandManager.IsArmedWithTool -
+  hotkeys 1-4, not just holding the tool somewhere in hand) before counting a
+  hit (silently no-ops without one, per this session's answer - no rejection
+  UI yet). Grants the resource via InventoryManager.AddItem (which already
+  logs "-> Inventory" for free) and, once spent, gameObject.SetActive(false) -
+  not destroyed, same pattern as an unlocked base slot. Self-adds
+  InteractableHotspot if missing, same pattern UIPromptActionHub uses for
+  ButtonHUB. Every landed hit (that doesn't finish the tree) also plays a
+  quick scale-pulse "bounce" (Bounce() coroutine, ~0.15s, +15% at the peak) as
+  hit feedback - bounces the whole tree transform, so its colliders flex by
+  the same amount too for that brief moment, which is harmless in practice.
+  NOTE: currently wired to BOTH E and right-click (OnInteract AND
+  OnSecondaryInteract) as a temporary diagnostic - was added while chasing a
+  bug where right-click seemed to do nothing (turned out to be an unrelated
+  InventoryManager lookup issue, now fixed - see below). Worth revisiting
+  whether to drop the E listener now that root cause is known, or keep both
+  since it doesn't hurt.
+- InventoryManager/PlayerHandManager lookups in HarvestableResource.Start()
+  must pass FindObjectsInactive.Include - PanelInventory (InventoryManager's
+  GameObject) is a descendant of the UI-Inventory canvas, which UInavigator
+  hides (SetActive(false)) as part of its own Start() - and that finishes
+  running before any of the Start() calls it queued via AddComponent
+  (TreeSpawner, and transitively every HarvestableResource) get processed. The
+  default FindAnyObjectByType (active-only) was silently returning null for
+  every tree because of this ordering, permanently (it's a one-time lookup).
+- ResourceNodeSpawner (Assets/MyScripts/ResourceNodeSpawner.cs, generalized
+  from the earlier tree-only TreeSpawner): scatters countPerPrefab instances
+  PER prefab in its `prefabs` array across the terrain at Play start, instead
+  of relying on manually-planted instances - the earlier "find existing
+  'Interactive'-tagged objects by name prefix" approach
+  (UInavigator.WireHarvestableResources) was removed since hand-planting
+  individual instances turned out unreliable (easy to grab the wrong prefab
+  variant, as happened once already this session). For each candidate point:
+  finds the Terrain by tag ("GameTerrain", same convention as
+  AdjustTerrainOnSlot/WaterFloater), picks a random (x, z) within
+  terrain.terrainData.size, samples ground height via Terrain.SampleHeight,
+  then checks a small radius for any Collider belonging to a GameObject with a
+  WaterFloater component (every water body already auto-fits one to its own
+  mesh bounds at Awake - see WaterFloater.cs - so this catches all of them
+  with no dedicated water tag/layer needed) and retries elsewhere if so.
+  Attaches HarvestableResource directly on each spawned instance as it's
+  placed, and sets its resourceItemName/requiredTool to match this spawner's
+  own config - no separate discovery/wiring pass needed afterward.
+  UInavigator.SpawnResourceNodes creates one dedicated holder GameObject per
+  resource type ("TreeSpawner", "RockSpawner"), each with its own
+  ResourceNodeSpawner instance configured differently - trees: treePrefabs
+  (just tree_1), treeCountPerPrefab=200, "Wood"/Cutting; rocks: rockPrefabs
+  (all 11 SM_Rocks_XX variants), rockCountPerPrefab=10 (110 total),
+  "Rock"/Mining. Both prefab arrays are set directly in the scene (UInavigator
+  isn't runtime-created, so its serialized values can be edited directly).
+- tree_1.prefab AND tree_1 Big.prefab (both under Assets/FreeAssets/Fantasy
+  Forest Environment Free Sample/Meshes/Prefabs/) are tagged "Interactive" and
+  carry a trigger CapsuleCollider (radius 5, height 20, center {0, 5, 0})
+  alongside their existing solid CapsuleCollider (untouched, still blocks
+  movement) - both got patched after a mix-up where manually-planted instances
+  turned out to be the "Big" variant, not the plain one (a SphereCollider was
+  tried first but had to be swapped to a CapsuleCollider - see below on why).
+  ResourceNodeSpawner only spawns tree_1 (plain), not tree_1 Big - the Big
+  variant's fix was for the earlier hand-planted instances, which this
+  approach no longer depends on, though it's left tagged/collided since it's
+  harmless on an inactive decoration.
+- All 11 rock prefabs (Assets/FreeAssets/PolyOne/Rocks Stylized/Prefabs/
+  SM_Rocks_01.prefab through SM_Rocks_11.prefab) tagged "Interactive" and
+  given a trigger SphereCollider (radius 4, center {0, 1, 0}) - these had no
+  collider at all originally (just Transform/MeshFilter/MeshRenderer), so
+  unlike the trees, rocks currently have NO solid collider and can be walked
+  through - only the interaction trigger was added, since that's what was
+  asked for. The radius/center is a uniform approximation across all 11
+  variants (their actual sizes weren't individually inspected) - tune
+  per-prefab in the Inspector if a specific rock's trigger feels off.
+- Watch for the CapsuleCollider-vs-SphereCollider gotcha if resizing any of
+  this later: Unity's PrefabInstance system tracks components by fileID, so
+  changing a component's TYPE at a fileID that existing scene instances
+  reference corrupts them ("Prefab mismatch" error, happened once this
+  session on tree_1 Big.prefab's 18 leftover scene instances). Safe fix is a
+  brand-new fileID for a differently-typed replacement, not reusing the old
+  one - or just add a second collider instead of swapping the first one's type.
+- ItemCatalog: added Axe (Tool/Cutting, letter A) and Pickaxe (Tool/Mining,
+  letter K - "P" was already Pants). ToolSubCategory gained Mining.
+
+WHAT'S BUILT (Drain / Buy Land)
+------------------------------------
+- IResourceContainer (CountItems/HasItems/TryRemoveItems) + ResourcePool: any
+  cost check now draws from a combined, ordered list of containers instead of
+  one hardcoded source. InventoryManager and PlayerHandManager both implement
+  IResourceContainer; BaseSlotExpander checks/spends via
+  ResourcePool.HasItems/TryRemoveItems(new[] { Inventory, Hand }, ...) so a
+  held-in-hand Wood/Rock counts toward a cost without moving it back to the
+  inventory first. Configure/Trade should reuse this same pattern (and can
+  add more sources later - e.g. a "storage chest" container - just by
+  implementing IResourceContainer and adding it to the list).
+- InventoryManager: CountItems/HasItems/TryRemoveItems - the cross-slot
+  query+spend API any sink or crafting system needs (not just per-slot-index
+  like RemoveFromSlot). Logs every successful AddItem via ResourceEventLog.
+- ResourceEventLog: static console log, one line per movement. Has
+  LogToConfigure/LogToTrade stubs already sitting there unused, ready for
+  whenever those paths get built - call them at the same point AddItem/
+  TryRemoveItems succeeds, same pattern as LogToDrain in BaseSlotExpander.
+- BaseSlotExpander: HasRequiredItems/CanAffordSlot/GetRequirementsText/
+  TryUnlockSlot - the whole "check a cost, spend it, log it" pattern for one
+  sink (base slot unlocking). This is the template to copy for a second
+  Drain-style sink if one ever comes up outside base slots.
+- UIPromptActionHub: click -> arm confirmation (if affordable) or reject
+  immediately (if not) -> wait indefinitely for a second click (confirm) or
+  Escape (cancel) -> spend + show result. No popup UI framework, just state
+  on one 3D world-space text object with one collider.
+
+CONFIGURE / UPGRADE (crafting) - NOT BUILT
+--------------------------------------------
+Loose shape from the session: "configuring using like wood/rock to create a
+tool, that kind of thing." Structurally this is a second sink very much like
+Drain, but its OUTPUT loops back into inventory (via AddItem) rather than
+just disappearing - so it's really Inventory -> Configure -> Inventory, not
+a pure drain.
+
+Likely shape, following the BaseSlotExpander template:
+- A CraftingRecipe data type: input ItemRequirement list (reuse
+  BaseSlotExpander.ItemRequirement, or promote it to a shared type if both
+  need it) + one output (ItemDefinition + quantity).
+- A CraftingManager: HasIngredients(recipe) / TryCraft(recipe) that spends
+  inputs via InventoryManager.TryRemoveItems and adds the output via
+  InventoryManager.AddItem - AddItem already logs "-> Inventory" for the
+  output for free; TryCraft would need its own ResourceEventLog.LogToConfigure
+  call for the inputs being spent, same as BaseSlotExpander does for Drain.
+- UI: unclear yet. Could be its own ButtonHUB-style world prompt (matching
+  Buy Land's pattern) or a proper 2D crafting panel/menu. Needs a decision
+  before building - this is the first open question below.
+
+Open questions before building this:
+  1. UI surface: a world-space "craft station" object (like ButtonHUB), a
+     dedicated 2D crafting panel, or something else?
+  2. Do crafted items ever need ToolSubCategory (Building/Cutting, already
+     in ItemEnums.cs but unused) to gate what a recipe can produce, or is
+     that a separate, later concern?
+  3. Recipe data: hardcoded list like ItemCatalog, or something the base
+     slots/other systems can extend later?
+
+TRADE (NPCs) - NOT BUILT
+--------------------------
+Bidirectional: item goes Inventory -> Trade -> NPC, and something (item or
+currency?) comes back Trade -> Inventory. The session's description called
+it "a little bit of drain" since the given item is genuinely gone, but
+functionally it's an exchange, not a pure sink like Buy Land.
+
+Open questions before building this:
+  1. Trade FOR what - other items (direct barter) or an abstract currency
+     that doesn't exist in ItemCatalog yet?
+  2. Where does a trade happen - talking to an NPCai (Assets/MyScripts/
+     NPCai.cs already exists) opens a trade UI, or is it another world-space
+     prompt like ButtonHUB?
+  3. Per-NPC trade offers (this NPC wants Wood, gives Food) vs. one shared
+     trade table for all NPCs?
+  4. Does TradeManager reuse ItemPlacementTracker's routing (it already owns
+     "where does an item go on double-click"), or stay fully separate since
+     trade isn't a double-click-driven action?
+
+TESTING PLAN (from the session)
+---------------------------------
+
+CONFIRMED WORKING this session: chopping a tree with an armed Axe grants Wood
+and the tree bounces per hit, then disappears at 0 hits remaining. Below is
+the original step-by-step (numbers now stale - 200 trees not 400 - but the
+flow is unchanged) plus what to check for rocks, added this session.
+
+A) Source: chopping a tree for Wood
+   0. No manual scene setup needed - the "TreeSpawner" holder GameObject
+      scatters 200 tree_1 instances across the terrain automatically at Play
+      start (skipping water). Console should show "[TreeSpawner] Spawned
+      200/200 nodes across 1 prefab(s)." - if the count is lower, some spots
+      kept landing in water after maxAttemptsPerNode retries (harmless, just
+      fewer trees).
+      Manually-planted decorative trees from earlier in the session (the
+      "Big" variant mix-up) can be left as-is or removed - they still work
+      since tree_1 Big.prefab got the same tag/collider fix, but they're no
+      longer required for this to function.
+   1. Play mode, right-click InventoryManager in the Inspector -> "Debug: Add
+      Test Items" (now grants 1 Axe + 1 Pickaxe only).
+   2. Move the Axe from inventory into a hand slot (double-click it).
+   3. Press the number key matching that hand slot (1-4, left to right =
+      Hand/Hand1/Hand2/Hand3) to arm it - the slot's box should tint a gentle
+      yellow/orange (PlayerHandManager.ArmSlot / HandSlotUI.SetArmed). Having
+      the Axe in hand isn't enough on its own - it has to be the armed slot
+      (PlayerHandManager.IsArmedWithTool), which is the piece this session
+      added after noticing chopping didn't work without it.
+   4. Walk within ~3 units of a planted tree - "E-Key" should appear (the
+      panel is shared with Buy Land, shown by any InteractableHotspot).
+   5. Right-click (not E) up to 5 times - each should grant 1 Wood to
+      inventory (check the console for "1x Wood -> Inventory" - AddItem logs
+      this automatically) and consume the click even though the E-Key panel
+      doesn't change appearance (chopping has no confirm-step UI, unlike Buy
+      Land - it's a repeated action, not a one-shot purchase).
+   6. After the 5th right-click, the tree should disappear (SetActive(false),
+      not destroyed) and no longer respond to E or right-click.
+   7. To test the no-tool/not-armed case: either arm a different slot (press
+      2/3/4 while they're empty or hold something else), or never arm the Axe
+      slot at all, and right-click a tree - nothing should happen (no wood
+      granted, no log line, no error) per this session's "silently do
+      nothing" answer.
+
+B) Source: mining a rock for Rock - same flow as trees, added this session
+   0. The "RockSpawner" holder GameObject scatters 10 instances PER rock
+      prefab (11 variants) = 110 total across the terrain at Play start.
+      Console: "[RockSpawner] Spawned 110/110 nodes across 11 prefab(s)."
+   1. Move the Pickaxe into a hand slot and arm it (1-4) instead of the Axe -
+      rocks check ToolSubCategory.Mining, not Cutting, so an armed Axe won't
+      work on a rock and vice versa.
+   2. Walk within ~4 units of a rock (SphereCollider trigger, uniform across
+      all 11 variants - see note above about this being an approximation).
+   3. Right-click (or E - see the temporary both-wired note above) up to 5
+      times - each grants 1 Rock, same bounce feedback, same disappear-at-0
+      behavior as trees.
+   NOTE: rocks currently have no solid collider at all (trees kept their
+   original one) - the player can walk straight through a rock's visible
+   mesh. Not fixed since it wasn't part of what was asked - flag if that
+   should change.
+
+B) Drain: Inventory -> Drain via Buy Land (unchanged from before, but Wood/Rock
+   no longer come from Debug - Wood from (A) above, Rock has no source yet).
+   Interaction is proximity + E, not mouse click (the cursor is locked to
+   screen center for the mouse-look camera, so raycasting from it isn't
+   reliable). Proximity is physics-driven: ButtonHUB is tagged "Interactive"
+   and carries a trigger SphereCollider (~4 world units) plus an auto-added
+   InteractableHotspot that shows/hides the "E-Key" panel on
+   OnTriggerEnter/Exit against the player's CharacterController, and fires
+   OnInteract (which UIPromptActionHub listens to) when E is pressed while
+   inside. Items in hand count toward the cost too, not just inventory
+   (ResourcePool checks Inventory then Hand).
+   1. ButtonHUB should hover over the first base slot showing "BUY LAND
+      (3 Wood, 3 Rock)". Chop enough Wood via (A) - Rock still needs a source.
+   2. Walk within ~4 units of ButtonHUB - "E-Key" should appear. Press E ->
+      prompt should switch to "PRESS E TO CONFIRM (Esc to cancel)" and just
+      sit there - no timer.
+   3. Press E again -> should show "YES", drain the cost from the combined
+      inventory+hand pool (console: "3x Wood -> Drain (...)"), unlock the
+      slot, clear its terrain, then move on to the next locked slot after ~1s.
+   4. To test "not enough resources": press E while under-resourced - should
+      show "NOT ENOUGH RESOURCES" instead of arming a confirmation.
+   5. To test cancel: press E to arm confirmation, press Escape (from
+      anywhere, not range-gated) - should revert to the normal prompt with
+      nothing spent.
+   6. Walk out of range while "E-Key" is showing (not mid-confirmation) -
+      panel should hide again.
