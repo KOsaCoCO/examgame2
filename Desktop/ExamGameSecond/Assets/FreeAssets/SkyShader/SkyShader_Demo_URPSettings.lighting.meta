@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 72faf8650c6938143bae504fbfb1ef70
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 4890085278179872738
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181308
+  packageName: Simply Sky Gradient Shader
+  packageVersion: 1.03
+  assetPath: Assets/SkyShader/SkyShader_Demo_URPSettings.lighting
+  uploadId: 533190

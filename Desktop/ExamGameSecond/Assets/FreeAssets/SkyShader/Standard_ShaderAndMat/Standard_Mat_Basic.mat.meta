@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c7e7f0a6b74123c4cb8dee8cee2ff779
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181308
+  packageName: Simply Sky Gradient Shader
+  packageVersion: 1.03
+  assetPath: Assets/SkyShader/Standard_ShaderAndMat/Standard_Mat_Basic.mat
+  uploadId: 533190

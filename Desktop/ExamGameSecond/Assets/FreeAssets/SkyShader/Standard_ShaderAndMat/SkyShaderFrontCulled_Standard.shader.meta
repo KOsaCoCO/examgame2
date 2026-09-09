@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f3802c527f69c7a4ab4dd541b049bc26
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181308
+  packageName: Simply Sky Gradient Shader
+  packageVersion: 1.03
+  assetPath: Assets/SkyShader/Standard_ShaderAndMat/SkyShaderFrontCulled_Standard.shader
+  uploadId: 533190

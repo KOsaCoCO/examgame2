@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SkyShaderFrontCulled
+  m_Shader: {fileID: 4800000, guid: f3802c527f69c7a4ab4dd541b049bc26, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - _AlphaCutoff: 0.5
+    - _HghAdjust: -0.324
+    - _HighAdjust: 0
+    - _LowAdjust: -0.381
+    - _LowAdjust1: 0.2
+    - _LowBooster: 1.55
+    - _MidAdjust: 0.128
+    m_Colors:
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HighColor: {r: 0.9808721, g: 1, b: 0.36320746, a: 0}
+    - _JiColor1: {r: 0.4811321, g: 0.34246728, b: 0.3290762, a: 0}
+    - _LowColor: {r: 0, g: 0.04240509, b: 1, a: 0}
+    - _LowColor1: {r: 0.0990569, g: 0.4716981, b: 0, a: 0}
+    - _MidColor: {r: 0, g: 0.6133615, b: 0.85882354, a: 0}
+    - _MidColor1: {r: 0, g: 1, b: 0.9430561, a: 0}

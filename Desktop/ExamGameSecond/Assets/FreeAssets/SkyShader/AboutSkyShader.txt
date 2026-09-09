@@ -1,0 +1,18 @@
+This Sky Shader asset pack will be improved over time based on your feedback.
+
+Current render pipelines:
+SRP - Standard (3D)
+URP - Universal (LWRP) Render Pipeline
+HDRP - High Definition Render Pipeline
+
+IF YOU HAVE PINK SHADERS, MAKE SURE YOU LOAD THE CORRECT SCENE or USE THE CORRECT renderpipeline materials. Do not hesitiate to email me
+me@robertramsay.co.uk
+
+The shader is a simple UV based gradient, apply it to a unity Sphere and scale the sphere up to a very large size.
+Use a reflection probe (Realtime, on awake) as set up in the example scene.
+The near and far of the reflection probe will need adjusting to match the scale of the sphere.
+
+Modify the 3 colours and adjusters in the material applied to get the desired look.
+
+THANKS!!
+Robert

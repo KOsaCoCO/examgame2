@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8cb27d473a526064cb656c64d6ae08fc
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 181308
+  packageName: Simply Sky Gradient Shader
+  packageVersion: 1.03
+  assetPath: Assets/SkyShader/SkyShader_Demo_HDRP.unity
+  uploadId: 533190
