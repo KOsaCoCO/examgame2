@@ -1,0 +1,236 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4787734284849576031
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3300304173100923524}
+  - component: {fileID: 7473053328557531722}
+  - component: {fileID: -7983791992081100415}
+  - component: {fileID: 7988323930711005655}
+  - component: {fileID: 5947160507813862114}
+  - component: {fileID: 5232336932930812111}
+  m_Layer: 0
+  m_Name: Monster11_03
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3300304173100923524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787734284849576031}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2079132420200188675}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7473053328557531722
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787734284849576031}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &-7983791992081100415
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787734284849576031}
+  m_Enabled: 1
+  m_AgentTypeID: -334000983
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &7988323930711005655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787734284849576031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4753e163761eecf4ab696fe53fd51b7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NTGD124.Mobai
+  _componentDescription: Drives one mob's behaviour based on its Difficulty Level
+    (matches which list it was spawned from in MobSpawner) and the current day/night
+    cycle read from the SkyTag-tagged object's rotation (found automatically at runtime).
+    By day, mobs avoid stronger mobs and attack according to their difficulty rules,
+    wandering idly on the NavMesh when nothing is nearby. By night, Easy and Medium
+    mobs roll a chance to join a rally advancing on 'Center Orient', a placeholder
+    found under the BaseSlot-tagged object. Reserves a hook for a future PlayerLevel
+    system to force a rally on level-up and to gate whether Easy mobs consider the
+    player attackable.
+  DifficultyLevel: 0
+  SkyTag: Sky
+  NightStartDegrees: 180
+  DayStartDegrees: 360
+  PlayerTag: Player
+  BaseSlotTag: BaseSlot
+  CenterOrientName: Center Orient
+  PlayerDetectionRange: 15
+  ThreatDetectionRange: 15
+  AttackRange: 4
+  EasyFleePlayerDistance: 4
+  EasyAttackCooldownSeconds: 1
+  MediumAttackCooldownSeconds: 1
+  HardAttackCooldownSeconds: 2
+  NormalMoveSpeed: 3.5
+  RallyMoveSpeed: 4.5
+  RallyJoinChance: 0.3
+  BehaviourCheckIntervalSeconds: 1
+  IdleWanderRadius: 20
+  DisableAutomaticBehaviour: 0
+  MovementAnimationThreshold: 0.01
+--- !u!114 &5947160507813862114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787734284849576031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49bb20d0a8de2f4ba1685f720fbd2de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NTGD124.MobHealth
+  easyHitsRequired: 10
+  mediumHitsRequired: 50
+  hardHitsRequired: 100
+  IsUniqueBoss: 0
+  barHeightOffset: 2.2
+  barWidth: 1
+  barThickness: 0.12
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  lowHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  interactionRadius: 3
+--- !u!95 &5232336932930812111
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787734284849576031}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+  m_Controller: {fileID: 9100000, guid: f1eb09fb7acabf54d9f34006cad1e98a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &1968133058753899752
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3300304173100923524}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1852141807748004894, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2edbcb6c00b543847a7e24c9acb647c8, type: 2}
+    - target: {fileID: 919132149155446097, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+      propertyPath: m_Name
+      value: Monster11_FreeTrial
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+--- !u!4 &2079132420200188675 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a77c30b47a2f3b47b8c8ef4fba4cdcb, type: 3}
+  m_PrefabInstance: {fileID: 1968133058753899752}
+  m_PrefabAsset: {fileID: 0}
